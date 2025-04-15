@@ -1,6 +1,6 @@
-# Package Controller
+# Npm Finder
 
-Package Controller, NPM paketleri hakkında detaylı bilgi edinmenizi sağlayan modern bir web uygulamasıdır. Paketlerin popülerlik metrikleri, bağımlılıkları, indirme istatistikleri ve benzer alternatifleri hakkında kapsamlı bilgiler sunar.
+Npm Finder, NPM paketleri hakkında detaylı bilgi edinmenizi sağlayan modern bir web uygulamasıdır. Paketlerin popülerlik metrikleri, bağımlılıkları, indirme istatistikleri ve benzer alternatifleri hakkında kapsamlı bilgiler sunar.
 
 ## 🚀 Özellikler
 
@@ -24,10 +24,10 @@ Projeyi yerel ortamınızda çalıştırmak için:
 
 ```bash
 # Repoyu klonlayın
-git clone https://github.com/gamzesirin/package-controller.git
+git clone https://github.com/gamzesirin/npm-finder.git
 
 # Proje dizinine gidin
-cd package-app
+cd npm-finder
 
 # Bağımlılıkları yükleyin
 npm install
