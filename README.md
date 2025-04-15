@@ -24,7 +24,7 @@ Projeyi yerel ortamınızda çalıştırmak için:
 
 ```bash
 # Repoyu klonlayın
-git clone https://github.com/gamzesirin/package-app.git
+git clone https://github.com/gamzesirin/package-controller.git
 
 # Proje dizinine gidin
 cd package-app
