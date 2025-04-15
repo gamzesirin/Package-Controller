@@ -1,0 +1,38 @@
+{
+  "name": "package-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.0",
+    "@tanstack/react-query": "^5.72.2",
+    "autoprefixer": "^10.4.21",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cross-fetch": "^4.1.0",
+    "framer-motion": "^12.6.5",
+    "lucide-react": "^0.487.0",
+    "motion": "^12.6.5",
+    "next": "14.2.18",
+    "react": "^18",
+    "react-dom": "^18",
+    "recharts": "^2.15.2",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.18",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
+  }
+}
