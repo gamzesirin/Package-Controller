@@ -2,6 +2,8 @@
 
 Npm Finder, NPM paketleri hakkında detaylı bilgi edinmenizi sağlayan modern bir web uygulamasıdır. Paketlerin popülerlik metrikleri, bağımlılıkları, indirme istatistikleri ve benzer alternatifleri hakkında kapsamlı bilgiler sunar.
 
+🌐 [Canlı Site](https://npmfinder.com) | 🔗 [GitHub](https://github.com/gamzesirin/npm-finder)
+
 ## 🚀 Özellikler
 
 - 🔍 Gelişmiş paket arama ve öneriler
