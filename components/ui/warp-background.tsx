@@ -1,4 +1,4 @@
-import { cn } from '@/app/lib/utils'
+import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import React, { HTMLAttributes, useCallback, useMemo } from 'react'
 
