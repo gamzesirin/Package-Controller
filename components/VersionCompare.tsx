@@ -1,17 +1,20 @@
+import { Version, VersionCompareProps, VersionDetails } from '@/types'
 import { useState, useEffect } from 'react'
-import { Version, VersionDetails, VersionCompareProps } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 export default function VersionCompare({ packageName }: VersionCompareProps) {
 	const [versions, setVersions] = useState<Version[]>([])
 	const [selectedVersions, setSelectedVersions] = useState<string[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState('')
+	const { t, i18n } = useTranslation()
 
 	useEffect(() => {
 		const fetchVersions = async () => {
 			try {
 				const response = await fetch(`https://registry.npmjs.org/${packageName}`)
-				if (!response.ok) throw new Error('Versiyon bilgileri alınamadı')
+				if (!response.ok) throw new Error(t('versionCompare.error'))
 
 				const data = await response.json()
 				const versionList = Object.entries(data.versions).map(([version, details]) => ({
@@ -23,7 +26,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 				setVersions(versionList.slice(-5).reverse())
 				setSelectedVersions([versionList[versionList.length - 1].version])
 			} catch (err) {
-				setError('Versiyon bilgileri yüklenirken bir hata oluştu')
+				setError(t('versionCompare.error'))
 				console.error(err)
 			} finally {
 				setIsLoading(false)
@@ -31,7 +34,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 		}
 
 		fetchVersions()
-	}, [packageName])
+	}, [packageName, t])
 
 	const handleVersionSelect = (version: string) => {
 		setSelectedVersions((prev) => {
@@ -48,10 +51,10 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 	if (isLoading) {
 		return (
 			<div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-				<h3 className="text-lg font-semibold mb-4 dark:text-white">Versiyon Karşılaştırma</h3>
+				<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('versionCompare.title')}</h3>
 				<div className="flex items-center justify-center py-8">
 					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-					<span className="ml-3 text-gray-500 dark:text-gray-400">Versiyon bilgileri yükleniyor...</span>
+					<span className="ml-3 text-gray-500 dark:text-gray-400">{t('versionCompare.loading')}</span>
 				</div>
 			</div>
 		)
@@ -60,7 +63,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 	if (error) {
 		return (
 			<div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-				<h3 className="text-lg font-semibold mb-4 dark:text-white">Versiyon Karşılaştırma</h3>
+				<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('versionCompare.title')}</h3>
 				<div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-500 dark:text-red-400 rounded-lg">
 					<p>{error}</p>
 				</div>
@@ -69,7 +72,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 	}
 
 	const formatDate = (dateString: string) => {
-		return new Date(dateString).toLocaleDateString('tr-TR', {
+		return new Date(dateString).toLocaleDateString(i18n.language === 'tr' ? 'tr-TR' : 'en-US', {
 			year: 'numeric',
 			month: 'long',
 			day: 'numeric'
@@ -82,7 +85,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 
 	return (
 		<div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-			<h3 className="text-lg font-semibold mb-4 dark:text-white">Versiyon Karşılaştırma</h3>
+			<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('versionCompare.title')}</h3>
 
 			<div className="space-y-4">
 				<div className="flex flex-wrap gap-2">
@@ -103,7 +106,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 
 				{selectedVersions.length === 0 ? (
 					<div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg text-center text-gray-500 dark:text-gray-400">
-						Karşılaştırmak için en az bir versiyon seçin
+						{t('versionCompare.selectAtLeastOne')}
 					</div>
 				) : (
 					<div className="grid gap-4">
@@ -119,12 +122,12 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 											<span className="text-sm text-gray-500 dark:text-gray-400 ml-2">{formatDate(version.date)}</span>
 										</div>
 										<span className="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs">
-											{Object.keys(deps).length} bağımlılık
+											{Object.keys(deps).length} {t('versionCompare.dependencies').toLowerCase()}
 										</span>
 									</div>
 
 									<div className="border-t border-gray-200 dark:border-gray-600 pt-3 mt-1">
-										<h4 className="text-sm font-medium mb-2 dark:text-gray-300">Bağımlılıklar:</h4>
+										<h4 className="text-sm font-medium mb-2 dark:text-gray-300">{t('versionCompare.dependencies')}:</h4>
 
 										{hasDependencies(deps) ? (
 											<div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -142,7 +145,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 
 												{Object.keys(deps).length > 6 && (
 													<div className="text-sm bg-gray-100 dark:bg-gray-700 p-2 rounded text-center text-gray-500 dark:text-gray-400">
-														+{Object.keys(deps).length - 6} daha fazla
+														+{Object.keys(deps).length - 6} {t('versionCompare.moreDependencies')}
 													</div>
 												)}
 											</div>
@@ -161,7 +164,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 													/>
 												</svg>
 												<span className="text-sm text-yellow-700 dark:text-yellow-400">
-													Bu versiyonda tanımlanmış bağımlılık bulunmuyor veya bağımlılık bilgisi mevcut değil.
+													{t('versionCompare.noDependenciesMessage')}
 												</span>
 											</div>
 										)}

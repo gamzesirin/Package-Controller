@@ -1,12 +1,15 @@
 'use client'
 
+import { fetchSizeData } from '@/app/api/fetchSizeData'
+import { SizeComparisonProps, SizeInfo } from '@/types'
 import { useState, useEffect } from 'react'
-import { fetchSizeData } from '../api/fetchSizeData'
-import { SizeComparisonProps, SizeInfo } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 export default function SizeComparison({ packageName }: SizeComparisonProps) {
 	const [loading, setLoading] = useState(true)
 	const [currentSize, setCurrentSize] = useState<SizeInfo>({ minified: 0, gzipped: 0, dependencies: 0 })
+	const { t } = useTranslation()
 
 	const getAlternatives = () => {
 		if (packageName === 'react') return ['preact', 'vue', 'svelte']
@@ -60,9 +63,9 @@ export default function SizeComparison({ packageName }: SizeComparisonProps) {
 
 	return (
 		<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-			<h3 className="text-lg font-semibold dark:text-white mb-2">Paket Boyutu</h3>
+			<h3 className="text-lg font-semibold dark:text-white mb-2">{t('sizeComparison.title')}</h3>
 			<p className="text-sm text-gray-600 dark:text-gray-300 mb-5">
-				{packageName} paketinin boyutu ve alternatiflerin karşılaştırması
+				{packageName} {t('sizeComparison.subtitle')}
 			</p>
 
 			{loading ? (
@@ -74,23 +77,25 @@ export default function SizeComparison({ packageName }: SizeComparisonProps) {
 					<div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
 						<div className="flex justify-between items-center mb-2">
 							<h4 className="font-medium text-blue-800 dark:text-blue-300">{packageName}</h4>
-							<div className="text-xs text-gray-500 dark:text-gray-400">Aktif Kullanılan</div>
+							<div className="text-xs text-gray-500 dark:text-gray-400">{t('sizeComparison.activeUsed')}</div>
 						</div>
 						<div className="flex flex-wrap gap-2 mb-2">
 							<div className={`px-2 py-1 text-xs rounded ${getBadge('minified', currentSize.minified)}`}>
-								{currentSize.minified} KB (minified)
+								{currentSize.minified} KB ({t('sizeComparison.minified')})
 							</div>
 							<div className={`px-2 py-1 text-xs rounded ${getBadge('gzipped', currentSize.gzipped)}`}>
-								{currentSize.gzipped} KB (gzipped)
+								{currentSize.gzipped} KB ({t('sizeComparison.gzipped')})
 							</div>
 							<div className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
-								{currentSize.dependencies} bağımlılık
+								{currentSize.dependencies} {t('sizeComparison.dependencies')}
 							</div>
 						</div>
 					</div>
 
 					<div className="space-y-2">
-						<h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alternatifler</h4>
+						<h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+							{t('sizeComparison.alternatives')}
+						</h4>
 						{alternatives.map((alt, index) => {
 							const size = alternativeSizes[alt as keyof typeof alternativeSizes]
 							const savings = (((currentSize.gzipped - size.gzipped) / currentSize.gzipped) * 100).toFixed(0)
@@ -99,7 +104,9 @@ export default function SizeComparison({ packageName }: SizeComparisonProps) {
 								<div key={index} className="p-3 border border-gray-200 dark:border-gray-700 rounded-lg">
 									<div className="flex justify-between items-center mb-1">
 										<h5 className="text-sm font-medium">{alt}</h5>
-										<div className="text-xs text-green-600 dark:text-green-400">{savings}% daha küçük</div>
+										<div className="text-xs text-green-600 dark:text-green-400">
+											{savings}% {t('sizeComparison.smaller')}
+										</div>
 									</div>
 									<div className="flex flex-wrap gap-2">
 										<div className={`px-2 py-1 text-xs rounded ${getBadge('minified', size.minified)}`}>
@@ -115,7 +122,7 @@ export default function SizeComparison({ packageName }: SizeComparisonProps) {
 					</div>
 
 					<div className="pt-3 mt-3 border-t border-gray-100 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
-						Boyut verileri gerçek zamanlı olarak Bundlephobia&apos;dan alınmaktadır.
+						{t('sizeComparison.bundlephobiaNote')}
 					</div>
 				</div>
 			)}

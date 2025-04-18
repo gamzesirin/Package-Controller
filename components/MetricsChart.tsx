@@ -1,8 +1,10 @@
 'use client'
 
+import { fetchMetricsData } from '@/app/api/fetchMetricsData'
+import { MetricsChartProps, PackageMetrics } from '@/types'
 import { useState, useEffect } from 'react'
-import { fetchMetricsData } from '../api/fetchMetricsData'
-import { MetricsChartProps, PackageMetrics } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 const formatBytes = (bytes: number): string => {
 	if (bytes === 0) return '0 B'
@@ -15,6 +17,7 @@ const formatBytes = (bytes: number): string => {
 export default function MetricsChart({ packageName }: MetricsChartProps) {
 	const [loading, setLoading] = useState(true)
 	const [packageData, setPackageData] = useState<PackageMetrics | null>(null)
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -48,12 +51,12 @@ export default function MetricsChart({ packageName }: MetricsChartProps) {
 
 	return (
 		<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-			<h3 className="text-lg font-semibold dark:text-white mb-4">Paket Boyutu</h3>
+			<h3 className="text-lg font-semibold dark:text-white mb-4">{t('metricsChart.title')}</h3>
 
 			{loading ? (
 				<div className="h-64 flex flex-col items-center justify-center space-y-3">
 					<div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
-					<p className="text-sm text-gray-500 dark:text-gray-400">Boyut verileri yükleniyor...</p>
+					<p className="text-sm text-gray-500 dark:text-gray-400">{t('metricsChart.loading')}</p>
 				</div>
 			) : (
 				<div className="space-y-6">
@@ -64,29 +67,29 @@ export default function MetricsChart({ packageName }: MetricsChartProps) {
 						{packageData && (
 							<div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
 								<div className={`p-4 rounded-lg ${getBadge('minified', minifiedSize)}`}>
-									<h3 className="text-lg font-semibold mb-2">Minified Size</h3>
+									<h3 className="text-lg font-semibold mb-2">{t('metricsChart.minifiedSize')}</h3>
 									<p className="text-2xl font-bold">{formatBytes(minifiedSize)}</p>
 								</div>
 								<div className={`p-4 rounded-lg ${getBadge('gzipped', gzippedSize)}`}>
-									<h3 className="text-lg font-semibold mb-2">Gzipped Size</h3>
+									<h3 className="text-lg font-semibold mb-2">{t('metricsChart.gzippedSize')}</h3>
 									<p className="text-2xl font-bold">{formatBytes(gzippedSize)}</p>
 								</div>
 								<div className="p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
-									<h3 className="text-lg font-semibold mb-2">Dependencies</h3>
+									<h3 className="text-lg font-semibold mb-2">{t('metricsChart.dependencies')}</h3>
 									<p className="text-2xl font-bold">{packageData.dependencies || 0}</p>
 								</div>
 							</div>
 						)}
-						<div className="text-xs text-gray-500 dark:text-gray-400">
-							Paket boyutu, JS projelerinizde yükleme performansını etkiler.
-						</div>
+						<div className="text-xs text-gray-500 dark:text-gray-400">{t('metricsChart.sizeNote')}</div>
 					</div>
 
 					<div>
-						<h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Boyut Analizi</h4>
+						<h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+							{t('metricsChart.sizeAnalysis')}
+						</h4>
 						<div className="grid grid-cols-2 gap-3">
 							<div className="space-y-2">
-								<div className="text-xs text-gray-500 dark:text-gray-400">Minified Boyut</div>
+								<div className="text-xs text-gray-500 dark:text-gray-400">{t('metricsChart.minifiedSize')}</div>
 								<div className="relative pt-1">
 									<div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
 										<div
@@ -105,7 +108,7 @@ export default function MetricsChart({ packageName }: MetricsChartProps) {
 								</div>
 							</div>
 							<div className="space-y-2">
-								<div className="text-xs text-gray-500 dark:text-gray-400">Gzip Boyut</div>
+								<div className="text-xs text-gray-500 dark:text-gray-400">{t('metricsChart.gzippedSize')}</div>
 								<div className="relative pt-1">
 									<div className="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
 										<div
@@ -125,7 +128,7 @@ export default function MetricsChart({ packageName }: MetricsChartProps) {
 					</div>
 
 					<div className="pt-3 mt-3 border-t border-gray-100 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
-						Boyut verileri Bundlephobia&apos;dan alınmıştır. Daha küçük paketler daha hızlı yüklenir.
+						{t('metricsChart.bundlephobia')}
 					</div>
 				</div>
 			)}

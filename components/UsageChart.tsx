@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { DownloadData, UsageChartProps, NpmDownloadData } from '../types'
+
+import { useTranslation } from 'react-i18next'
+import { DownloadData, NpmDownloadData, UsageChartProps } from '@/types'
 
 export default function UsageChart({ packageName }: UsageChartProps) {
 	const [data, setData] = useState<DownloadData[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState('')
+	const { t, i18n } = useTranslation()
 
 	useEffect(() => {
 		const fetchDownloads = async () => {
@@ -21,18 +24,21 @@ export default function UsageChart({ packageName }: UsageChartProps) {
 				)
 
 				if (!response.ok) {
-					throw new Error('İndirme verileri alınamadı')
+					throw new Error(t('usageChart.error'))
 				}
 
 				const result = await response.json()
 				const formattedData = result.downloads.map((item: NpmDownloadData) => ({
-					date: new Date(item.day).toLocaleDateString('tr-TR', { month: 'short', day: 'numeric' }),
+					date: new Date(item.day).toLocaleDateString(i18n.language === 'tr' ? 'tr-TR' : 'en-US', {
+						month: 'short',
+						day: 'numeric'
+					}),
 					downloads: item.downloads
 				}))
 
 				setData(formattedData)
 			} catch (err) {
-				setError('Grafik verileri yüklenirken bir hata oluştu')
+				setError(t('usageChart.error'))
 				console.error(err)
 			} finally {
 				setIsLoading(false)
@@ -40,12 +46,12 @@ export default function UsageChart({ packageName }: UsageChartProps) {
 		}
 
 		fetchDownloads()
-	}, [packageName])
+	}, [packageName, t, i18n.language])
 
 	if (isLoading) {
 		return (
 			<div className="h-64 flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-lg">
-				<div className="text-gray-500 dark:text-gray-400">Veriler yükleniyor...</div>
+				<div className="text-gray-500 dark:text-gray-400">{t('usageChart.loading')}</div>
 			</div>
 		)
 	}
@@ -60,7 +66,7 @@ export default function UsageChart({ packageName }: UsageChartProps) {
 
 	return (
 		<div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-			<h3 className="text-lg font-semibold mb-4 dark:text-white">Son 30 Gün İndirme Trendi</h3>
+			<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('usageChart.title')}</h3>
 			<div className="h-64">
 				<ResponsiveContainer width="100%" height="100%">
 					<LineChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
@@ -70,7 +76,9 @@ export default function UsageChart({ packageName }: UsageChartProps) {
 							stroke="#6B7280"
 							tick={{ fill: '#6B7280' }}
 							tickLine={{ stroke: '#6B7280' }}
-							tickFormatter={(value) => new Intl.NumberFormat('tr-TR', { notation: 'compact' }).format(value)}
+							tickFormatter={(value) =>
+								new Intl.NumberFormat(i18n.language === 'tr' ? 'tr-TR' : 'en-US', { notation: 'compact' }).format(value)
+							}
 						/>
 						<Tooltip
 							contentStyle={{
@@ -79,7 +87,10 @@ export default function UsageChart({ packageName }: UsageChartProps) {
 								borderRadius: '0.5rem',
 								color: '#F3F4F6'
 							}}
-							formatter={(value: number) => [new Intl.NumberFormat('tr-TR').format(value), 'İndirme']}
+							formatter={(value: number) => [
+								new Intl.NumberFormat(i18n.language === 'tr' ? 'tr-TR' : 'en-US').format(value),
+								t('usageChart.downloads')
+							]}
 						/>
 						<Line
 							type="monotone"

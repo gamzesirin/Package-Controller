@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function ThemeToggle() {
 	const [isDark, setIsDark] = useState(false)
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const savedTheme = localStorage.getItem('theme')
@@ -26,13 +28,18 @@ export default function ThemeToggle() {
 	return (
 		<button
 			onClick={toggleTheme}
-			className="fixed top-4 right-4 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 
-                 text-gray-800 dark:text-gray-200 hover:bg-gray-200 
-                 dark:hover:bg-gray-700 transition-colors z-50"
-			title={isDark ? 'Açık Temaya Geç' : 'Koyu Temaya Geç'}
+			className="relative inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800/80 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-blue-500/40 dark:focus:ring-offset-gray-900"
+			title={isDark ? t('theme.light') : t('theme.dark')}
 		>
+			<span className="sr-only">{isDark ? t('theme.light') : t('theme.dark')}</span>
 			{isDark ? (
-				<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<svg
+					className="h-5 w-5 text-gray-900 dark:text-gray-200"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"
@@ -41,7 +48,13 @@ export default function ThemeToggle() {
 					/>
 				</svg>
 			) : (
-				<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<svg
+					className="h-5 w-5 text-gray-900 dark:text-gray-200"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"

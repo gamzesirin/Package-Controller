@@ -1,14 +1,17 @@
 'use client'
 
+import { fetchSimilarPackages } from '@/app/api/fetchPackageInfo'
+import { SimilarPackage, SimilarPackagesProps } from '@/types'
 import { useState, useEffect } from 'react'
-import { fetchSimilarPackages } from '../api/fetchPackageInfo'
-import { SimilarPackage, SimilarPackagesProps } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 export default function SimilarPackages({ packageName, onCompare }: SimilarPackagesProps) {
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
 	const [similarPackages, setSimilarPackages] = useState<SimilarPackage[]>([])
 	const [selectedPackages, setSelectedPackages] = useState<string[]>([packageName])
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const loadSimilarPackages = async () => {
@@ -52,7 +55,7 @@ export default function SimilarPackages({ packageName, onCompare }: SimilarPacka
 	return (
 		<div className="bg-white/90 dark:bg-gray-800/90 rounded-lg shadow-md p-6 backdrop-blur-sm">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-xl font-bold text-blue-600 dark:text-blue-400">Benzer Paketler</h2>
+				<h2 className="text-xl font-bold text-blue-600 dark:text-blue-400">{t('similarPackages.title')}</h2>
 
 				<button
 					onClick={handleCompare}
@@ -64,13 +67,13 @@ export default function SimilarPackages({ packageName, onCompare }: SimilarPacka
 					}`}
 				>
 					{selectedPackages.length < 2
-						? 'Karşılaştırmak için paket seçin'
-						: `${selectedPackages.length} Paketi Karşılaştır`}
+						? t('similarPackages.compare')
+						: `${selectedPackages.length} ${t('similarPackages.compare')}`}
 				</button>
 			</div>
 
 			<p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-				{packageName} ile benzer alternatif paketler. Karşılaştırmak için en fazla 2 alternatif paket seçebilirsiniz.
+				{packageName} {t('similarPackages.alternativePackages')}
 			</p>
 
 			{loading && (
@@ -87,7 +90,7 @@ export default function SimilarPackages({ packageName, onCompare }: SimilarPacka
 
 			{!loading && !error && similarPackages.length === 0 && (
 				<div className="p-4 bg-gray-50/80 dark:bg-gray-700/60 text-gray-500 dark:text-gray-400 rounded-lg backdrop-blur-sm">
-					<p>Benzer paket bulunamadı.</p>
+					<p>{t('similarPackages.noSimilarPackages')}</p>
 				</div>
 			)}
 
@@ -101,12 +104,12 @@ export default function SimilarPackages({ packageName, onCompare }: SimilarPacka
 									<h4 className="font-medium text-blue-600 dark:text-blue-400">
 										{packageName}
 										<span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-300">
-											Ana Paket
+											{t('similarPackages.mainPackage')}
 										</span>
 									</h4>
 								</div>
 								<p className="text-sm text-gray-600 dark:text-gray-300 pl-6 mt-1">
-									Seçilen ana paket. Karşılaştırmaya dahil edilecek.
+									{t('similarPackages.mainPackageDesc')}
 								</p>
 							</div>
 						</div>
@@ -144,7 +147,7 @@ export default function SimilarPackages({ packageName, onCompare }: SimilarPacka
 												{pkg.name}
 												{isDisabled && (
 													<span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
-														(Maksimum 2 alternatif paket seçebilirsiniz)
+														{t('similarPackages.maxAlternatives')}
 													</span>
 												)}
 											</h4>
@@ -162,7 +165,9 @@ export default function SimilarPackages({ packageName, onCompare }: SimilarPacka
 			{selectedPackages.length >= 2 && (
 				<div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
 					<div className="flex justify-between items-center">
-						<span className="text-sm text-gray-600 dark:text-gray-300">{selectedPackages.length} paket seçildi</span>
+						<span className="text-sm text-gray-600 dark:text-gray-300">
+							{selectedPackages.length} {t('similarPackages.packagesSelected')}
+						</span>
 					</div>
 				</div>
 			)}

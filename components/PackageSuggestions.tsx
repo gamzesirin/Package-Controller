@@ -1,13 +1,16 @@
 'use client'
 
+import { fetchPopularPackages } from '@/app/api/fetchPopularPackages'
+import { PackageSuggestionsProps, PopularPackage } from '@/types'
 import { useState, useEffect } from 'react'
-import { fetchPopularPackages } from '../api/fetchPopularPackages'
-import { PackageSuggestionsProps, PopularPackage } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 export default function PackageSuggestions({ currentPackage, onPackageSelect }: PackageSuggestionsProps) {
 	const [loading, setLoading] = useState(true)
 	const [packages, setPackages] = useState<PopularPackage[]>([])
 	const [error, setError] = useState<string | null>(null)
+	const { t, i18n } = useTranslation()
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -20,7 +23,7 @@ export default function PackageSuggestions({ currentPackage, onPackageSelect }: 
 				setPackages(filteredPackages)
 				setError(null)
 			} catch (err) {
-				setError('Popüler paketler alınamadı')
+				setError(t('packageSuggestions.error'))
 				console.error(err)
 			} finally {
 				setLoading(false)
@@ -28,12 +31,12 @@ export default function PackageSuggestions({ currentPackage, onPackageSelect }: 
 		}
 
 		fetchData()
-	}, [currentPackage])
+	}, [currentPackage, t])
 
 	if (loading) {
 		return (
 			<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-				<h3 className="text-lg font-semibold mb-4 dark:text-white">Popüler Paketler</h3>
+				<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('packageSuggestions.title')}</h3>
 				<div className="h-48 flex items-center justify-center">
 					<div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
 				</div>
@@ -44,7 +47,7 @@ export default function PackageSuggestions({ currentPackage, onPackageSelect }: 
 	if (error) {
 		return (
 			<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-				<h3 className="text-lg font-semibold mb-4 dark:text-white">Popüler Paketler</h3>
+				<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('packageSuggestions.title')}</h3>
 				<div className="text-red-500 dark:text-red-400">{error}</div>
 			</div>
 		)
@@ -52,7 +55,7 @@ export default function PackageSuggestions({ currentPackage, onPackageSelect }: 
 
 	return (
 		<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-			<h3 className="text-lg font-semibold mb-4 dark:text-white">Popüler Paketler</h3>
+			<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('packageSuggestions.title')}</h3>
 			<div className="space-y-4">
 				{packages.map((pkg) => (
 					<button
@@ -66,7 +69,8 @@ export default function PackageSuggestions({ currentPackage, onPackageSelect }: 
 						</div>
 						<p className="text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">{pkg.description}</p>
 						<div className="text-xs text-gray-500 dark:text-gray-400">
-							{new Intl.NumberFormat('tr-TR').format(pkg.downloads)} haftalık indirme
+							{new Intl.NumberFormat(i18n.language === 'tr' ? 'tr-TR' : 'en-US').format(pkg.downloads)}{' '}
+							{t('packageSuggestions.weeklyDownload')}
 						</div>
 					</button>
 				))}

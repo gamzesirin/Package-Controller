@@ -1,10 +1,15 @@
+'use client'
+
+import { fetchPackageInfo } from '@/app/api/fetchPackageInfo'
+import { FavoritePackage, FavoritesListProps } from '@/types'
 import { useState, useEffect } from 'react'
-import { fetchPackageInfo } from '../api/fetchPackageInfo'
-import { FavoritePackage, FavoritesListProps } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 export default function FavoritesList({ onSelectPackage }: FavoritesListProps) {
 	const [favorites, setFavorites] = useState<FavoritePackage[]>([])
 	const [isLoading, setIsLoading] = useState(true)
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const loadFavorites = async () => {
@@ -35,7 +40,6 @@ export default function FavoritesList({ onSelectPackage }: FavoritesListProps) {
 		if (onSelectPackage) {
 			onSelectPackage(packageName)
 		} else {
-			// URL parametresi olarak paket adını kullanarak arama sayfasına yönlendir
 			window.location.href = `/?package=${packageName}`
 		}
 	}
@@ -43,10 +47,10 @@ export default function FavoritesList({ onSelectPackage }: FavoritesListProps) {
 	if (isLoading) {
 		return (
 			<div className="bg-white/90 dark:bg-gray-800/90 p-4 rounded-xl shadow-lg backdrop-blur-sm">
-				<h3 className="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">Favorilerim</h3>
+				<h3 className="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">{t('favorites.title')}</h3>
 				<div className="flex flex-col items-center justify-center py-4 space-y-2">
 					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-					<p className="text-sm text-gray-500 dark:text-gray-400">Favoriler yükleniyor...</p>
+					<p className="text-sm text-gray-500 dark:text-gray-400">{t('search.loading')}</p>
 				</div>
 			</div>
 		)
@@ -55,17 +59,15 @@ export default function FavoritesList({ onSelectPackage }: FavoritesListProps) {
 	if (favorites.length === 0) {
 		return (
 			<div className="bg-white/90 dark:bg-gray-800/90 p-4 rounded-xl shadow-lg backdrop-blur-sm">
-				<h3 className="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">Favorilerim</h3>
-				<div className="text-gray-500 dark:text-gray-400">
-					Henüz favori paketiniz yok. Paketlerin yanındaki yıldız ikonuna tıklayarak favorilere ekleyebilirsiniz.
-				</div>
+				<h3 className="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">{t('favorites.title')}</h3>
+				<div className="text-gray-500 dark:text-gray-400">{t('favorites.empty')}</div>
 			</div>
 		)
 	}
 
 	return (
 		<div className="bg-white/90 dark:bg-gray-800/90 p-4 rounded-xl shadow-lg backdrop-blur-sm">
-			<h3 className="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">Favorilerim</h3>
+			<h3 className="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">{t('favorites.title')}</h3>
 			<div className="space-y-3">
 				{favorites.map((pkg) => (
 					<div
@@ -78,7 +80,8 @@ export default function FavoritesList({ onSelectPackage }: FavoritesListProps) {
 								<h4 className="font-medium flex items-center gap-2 group-hover:underline text-blue-600 dark:text-blue-400">
 									{pkg.name}
 									<span className="text-sm font-normal text-gray-500 dark:text-gray-400 no-underline">
-										v{pkg.version}
+										{t('packageCard.version')}
+										{pkg.version}
 									</span>
 									<svg
 										className="w-3.5 h-3.5 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -103,7 +106,7 @@ export default function FavoritesList({ onSelectPackage }: FavoritesListProps) {
 						<button
 							onClick={(e) => removeFavorite(pkg.name, e)}
 							className="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
-							title="Favorilerden Çıkar"
+							title={t('favorites.remove')}
 						>
 							<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

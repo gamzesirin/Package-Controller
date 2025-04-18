@@ -1,12 +1,15 @@
 'use client'
 
+import { fetchPackageInfo } from '@/app/api/fetchPackageInfo'
+import { PackageComparisonProps, PackageDetails } from '@/types'
 import { useState, useEffect } from 'react'
-import { fetchPackageInfo } from '../api/fetchPackageInfo'
-import { PackageComparisonProps, PackageDetails } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 export default function PackageComparison({ packages }: PackageComparisonProps) {
 	const [loading, setLoading] = useState(true)
 	const [packageDetails, setPackageDetails] = useState<PackageDetails[]>([])
+	const { t, i18n } = useTranslation()
 
 	useEffect(() => {
 		const fetchDetails = async () => {
@@ -33,7 +36,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 								description: 'Paket bilgisi alınamadı',
 								publishedAt: '-',
 								dependencies: 0,
-								error: 'Paket bilgisi yüklenirken hata oluştu'
+								error: t('packageComparison.errorLoading')
 							}
 						}
 					})
@@ -50,13 +53,13 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 		if (packages.length > 0) {
 			fetchDetails()
 		}
-	}, [packages])
+	}, [packages, t])
 
 	const formatDate = (dateString: string) => {
 		if (dateString === '-') return '-'
 
 		try {
-			return new Date(dateString).toLocaleDateString('tr-TR', {
+			return new Date(dateString).toLocaleDateString(i18n.language === 'tr' ? 'tr-TR' : 'en-US', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric'
@@ -95,7 +98,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 											scope="col"
 											className="sticky left-0 bg-white dark:bg-gray-800 px-4 py-2 text-left text-gray-600 dark:text-gray-300 font-medium"
 										>
-											Özellik
+											{t('packageComparison.feature')}
 										</th>
 										{packageDetails.map((pkg, index) => (
 											<th
@@ -113,7 +116,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 								<tbody className="divide-y divide-gray-200 dark:divide-gray-700">
 									<tr>
 										<td className="sticky left-0 bg-white dark:bg-gray-800 px-4 py-3 text-gray-600 dark:text-gray-300 font-medium">
-											Versiyon
+											{t('packageComparison.version')}
 										</td>
 										{packageDetails.map((pkg, index) => (
 											<td key={index} className="px-4 py-3 text-gray-800 dark:text-gray-200">
@@ -124,7 +127,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 
 									<tr>
 										<td className="sticky left-0 bg-white dark:bg-gray-800 px-4 py-3 text-gray-600 dark:text-gray-300 font-medium">
-											Son Güncelleme
+											{t('packageComparison.lastUpdate')}
 										</td>
 										{packageDetails.map((pkg, index) => (
 											<td key={index} className="px-4 py-3 text-gray-800 dark:text-gray-200">
@@ -135,7 +138,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 
 									<tr>
 										<td className="sticky left-0 bg-white dark:bg-gray-800 px-4 py-3 text-gray-600 dark:text-gray-300 font-medium">
-											Bağımlılık Sayısı
+											{t('packageComparison.dependencyCount')}
 										</td>
 										{packageDetails.map((pkg, index) => (
 											<td key={index} className="px-4 py-3 text-gray-800 dark:text-gray-200">
@@ -146,7 +149,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 
 									<tr>
 										<td className="sticky left-0 bg-white dark:bg-gray-800 px-4 py-3 text-gray-600 dark:text-gray-300 font-medium">
-											Haftalık İndirme
+											{t('packageComparison.weeklyDownloads')}
 										</td>
 										{packageDetails.map((pkg, index) => (
 											<td key={index} className="px-4 py-3 text-gray-800 dark:text-gray-200">
@@ -157,7 +160,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 
 									<tr>
 										<td className="sticky left-0 bg-white dark:bg-gray-800 px-4 py-3 text-gray-600 dark:text-gray-300 font-medium">
-											Skor
+											{t('packageComparison.score')}
 										</td>
 										{packageDetails.map((pkg, index) => (
 											<td key={index} className="px-4 py-3">
@@ -182,7 +185,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 
 									<tr>
 										<td className="sticky left-0 bg-white dark:bg-gray-800 px-4 py-3 text-gray-600 dark:text-gray-300 font-medium">
-											Detaylar
+											{t('packageComparison.details')}
 										</td>
 										{packageDetails.map((pkg, index) => (
 											<td key={index} className="px-4 py-3 text-sm">
@@ -195,7 +198,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 														rel="noopener noreferrer"
 														className="text-blue-500 hover:underline dark:text-blue-400"
 													>
-														NPM sayfası
+														{t('packageComparison.npmPage')}
 													</a>
 												)}
 											</td>
@@ -207,7 +210,9 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 					</div>
 
 					<div className="mt-6 space-y-2">
-						<h3 className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">Açıklamalar</h3>
+						<h3 className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
+							{t('packageComparison.descriptions')}
+						</h3>
 						{packageDetails.map((pkg, index) => (
 							<div
 								key={index}

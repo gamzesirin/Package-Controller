@@ -1,8 +1,8 @@
 'use client'
 
+import { fetchSearchSuggestions } from '@/app/api/fetchSearchSuggestions'
+import { SearchSuggestion, SearchSuggestionsProps } from '@/types'
 import { useState, useEffect, useRef } from 'react'
-import { fetchSearchSuggestions } from '../api/fetchSearchSuggestions'
-import { SearchSuggestion, SearchSuggestionsProps } from '../types'
 
 export default function SearchSuggestions({ searchTerm, onSelectPackage }: SearchSuggestionsProps) {
 	const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([])

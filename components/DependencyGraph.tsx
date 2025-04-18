@@ -1,13 +1,16 @@
 'use client'
 
+import { fetchDependencyData } from '@/app/api/fetchDependencyData'
+import { DependencyGraphProps, DependencyNode } from '@/types'
 import { useState, useEffect } from 'react'
-import { fetchDependencyData } from '../api/fetchDependencyData'
-import { DependencyGraphProps, DependencyNode } from '../types'
+
+import { useTranslation } from 'react-i18next'
 
 export default function DependencyGraph({ packageName }: DependencyGraphProps) {
 	const [loading, setLoading] = useState(true)
 	const [dependencies, setDependencies] = useState<DependencyNode | null>(null)
 	const [error, setError] = useState<string | null>(null)
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -17,7 +20,7 @@ export default function DependencyGraph({ packageName }: DependencyGraphProps) {
 				setDependencies(data)
 				setError(null)
 			} catch (err) {
-				setError('Bağımlılık verileri alınamadı')
+				setError(t('dependencyGraph.error'))
 				console.error(err)
 			} finally {
 				setLoading(false)
@@ -25,7 +28,7 @@ export default function DependencyGraph({ packageName }: DependencyGraphProps) {
 		}
 
 		fetchData()
-	}, [packageName])
+	}, [packageName, t])
 
 	const renderDependencyTree = (node: DependencyNode, level: number = 0) => {
 		return (
@@ -45,7 +48,7 @@ export default function DependencyGraph({ packageName }: DependencyGraphProps) {
 	if (loading) {
 		return (
 			<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-				<h3 className="text-lg font-semibold mb-4 dark:text-white">Bağımlılık Ağacı</h3>
+				<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('dependencyGraph.title')}</h3>
 				<div className="h-64 flex items-center justify-center">
 					<div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
 				</div>
@@ -56,7 +59,7 @@ export default function DependencyGraph({ packageName }: DependencyGraphProps) {
 	if (error) {
 		return (
 			<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-				<h3 className="text-lg font-semibold mb-4 dark:text-white">Bağımlılık Ağacı</h3>
+				<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('dependencyGraph.title')}</h3>
 				<div className="text-red-500 dark:text-red-400">{error}</div>
 			</div>
 		)
@@ -64,7 +67,7 @@ export default function DependencyGraph({ packageName }: DependencyGraphProps) {
 
 	return (
 		<div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-			<h3 className="text-lg font-semibold mb-4 dark:text-white">Bağımlılık Ağacı</h3>
+			<h3 className="text-lg font-semibold mb-4 dark:text-white">{t('dependencyGraph.title')}</h3>
 			<div className="overflow-auto max-h-96">{dependencies && renderDependencyTree(dependencies)}</div>
 		</div>
 	)
