@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from './_providers'
 import { Lexend, Poppins } from 'next/font/google'
+import Footer from '@/components/Footer'
 
 const lexend = Lexend({
 	subsets: ['latin'],
@@ -50,7 +51,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="tr" suppressHydrationWarning>
 			<body className={`${lexend.variable} ${poppins.variable} font-lexend antialiased`}>
-				<Providers>{children}</Providers>
+				<Providers>
+					{children}
+					<Footer />
+				</Providers>
 			</body>
 		</html>
 	)
