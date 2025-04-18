@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import { TrendData, NpmDownloadItem } from '../types'
+import { TrendData, NpmDownloadItem } from '../../types'
 
 export async function fetchTrendData(packageName: string): Promise<TrendData[]> {
 	try {

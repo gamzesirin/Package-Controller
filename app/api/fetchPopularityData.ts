@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import { PopularityData } from '../types'
+import { PopularityData } from '../../types'
 
 export async function fetchPopularityData(packageName: string): Promise<PopularityData> {
 	try {

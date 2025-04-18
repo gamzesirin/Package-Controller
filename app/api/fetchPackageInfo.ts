@@ -1,11 +1,10 @@
 import fetch from 'cross-fetch'
-import { PackageInfo, SearchResult } from '../types'
+import { PackageInfo, SearchResult } from '../../types'
 
 export async function fetchPackageInfo(packageName: string): Promise<PackageInfo> {
 	try {
 		const normalizedPackageName = packageName.toLowerCase().trim()
 
-		// Paralel olarak tüm API isteklerini yap
 		const [npmData, scoreData, downloadsData] = await Promise.all([
 			// NPM Registry'den paket bilgileri
 			fetch(`https://registry.npmjs.org/${normalizedPackageName}`).then((res) => {

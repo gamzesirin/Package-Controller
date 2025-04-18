@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import { SearchSuggestion } from '../types'
+import { SearchSuggestion } from '../../types'
 
 interface NpmSearchResponse {
 	package: {
