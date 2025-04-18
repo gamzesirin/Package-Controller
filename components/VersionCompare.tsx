@@ -99,7 +99,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 									: 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300'
 							}`}
 						>
-							v{version.version}
+							{version.version}
 						</button>
 					))}
 				</div>
@@ -118,7 +118,7 @@ export default function VersionCompare({ packageName }: VersionCompareProps) {
 								<div key={version.version} className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
 									<div className="flex items-center justify-between mb-3">
 										<div>
-											<span className="font-medium text-lg dark:text-white">v{version.version}</span>
+											<span className="font-medium text-lg dark:text-white">{version.version}</span>
 											<span className="text-sm text-gray-500 dark:text-gray-400 ml-2">{formatDate(version.date)}</span>
 										</div>
 										<span className="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs">

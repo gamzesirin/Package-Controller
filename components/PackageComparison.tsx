@@ -120,7 +120,7 @@ export default function PackageComparison({ packages }: PackageComparisonProps) 
 										</td>
 										{packageDetails.map((pkg, index) => (
 											<td key={index} className="px-4 py-3 text-gray-800 dark:text-gray-200">
-												{pkg.error ? '-' : pkg.version}
+												{pkg.error || !pkg.version ? '-' : pkg.version}
 											</td>
 										))}
 									</tr>

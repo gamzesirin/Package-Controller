@@ -79,10 +79,11 @@ export default function FavoritesList({ onSelectPackage }: FavoritesListProps) {
 							<div>
 								<h4 className="font-medium flex items-center gap-2 group-hover:underline text-blue-600 dark:text-blue-400">
 									{pkg.name}
-									<span className="text-sm font-normal text-gray-500 dark:text-gray-400 no-underline">
-										{t('packageCard.version')}
-										{pkg.version}
-									</span>
+									{pkg.version && (
+										<span className="text-sm font-normal text-gray-500 dark:text-gray-400 no-underline">
+											{pkg.version}
+										</span>
+									)}
 									<svg
 										className="w-3.5 h-3.5 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"
 										viewBox="0 0 20 20"

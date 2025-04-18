@@ -31,10 +31,9 @@ export default function PackageCard({ packageInfo, onFavoriteChange }: PackageCa
 						<div>
 							<h2 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
 								{packageInfo.name}
-								<span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-									{t('packageCard.version')}
-									{packageInfo.version}
-								</span>
+								{packageInfo.version && (
+									<span className="text-sm font-normal text-gray-500 dark:text-gray-400">{packageInfo.version}</span>
+								)}
 							</h2>
 							<p className="mt-2 text-gray-600 dark:text-gray-300">{packageInfo.description}</p>
 						</div>

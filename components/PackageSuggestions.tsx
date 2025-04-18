@@ -65,7 +65,7 @@ export default function PackageSuggestions({ currentPackage, onPackageSelect }: 
 					>
 						<div className="flex justify-between items-start mb-2">
 							<span className="font-medium text-gray-900 dark:text-white">{pkg.name}</span>
-							<span className="text-sm text-gray-500 dark:text-gray-400">v{pkg.version}</span>
+							<span className="text-sm text-gray-500 dark:text-gray-400">{pkg.version || '-'}</span>
 						</div>
 						<p className="text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">{pkg.description}</p>
 						<div className="text-xs text-gray-500 dark:text-gray-400">
