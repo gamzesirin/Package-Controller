@@ -1,0 +1,166 @@
+{
+	"title": "npm finder",
+	"subtitle": "Get detailed information about NPM packages",
+	"search": {
+		"placeholder": "Enter package name (e.g. react, next, tailwindcss)",
+		"button": "Search",
+		"loading": "Searching..."
+	},
+	"packageNotFound": {
+		"title": "Package Not Found",
+		"description": "The package you are looking for could not be found. Please check the package name and try again."
+	},
+	"didYouKnow": "Did You Know?",
+	"popularPackages": "Popular Packages",
+	"weeklyDownload": "weekly downloads",
+	"metrics": {
+		"downloads": "Downloads",
+		"stars": "Stars",
+		"issues": "Issues",
+		"score": "Score"
+	},
+	"comparison": {
+		"title": "Package Comparison",
+		"close": "Close"
+	},
+	"favorites": {
+		"title": "Favorites",
+		"empty": "You don't have any favorite packages yet",
+		"add": "Add to Favorites",
+		"remove": "Remove from Favorites"
+	},
+	"suggestions": {
+		"title": "Suggested Packages",
+		"empty": "No suggested packages available"
+	},
+	"theme": {
+		"light": "Light Theme",
+		"dark": "Dark Theme"
+	},
+	"language": {
+		"tr": "TR",
+		"en": "EN"
+	},
+	"packageCard": {
+		"releaseDate": "Release Date",
+		"weeklyDownloads": "Weekly Downloads",
+		"qualityScore": "Quality Score",
+		"popularity": "Popularity",
+		"viewOnGithub": "View on GitHub",
+		"version": "v"
+	},
+	"versionCompare": {
+		"title": "Version Comparison",
+		"selectVersion": "Select Version",
+		"dependencies": "Dependencies",
+		"noDependencies": "No dependencies found",
+		"devDependencies": "Dev Dependencies",
+		"noDevDependencies": "No dev dependencies found",
+		"peerDependencies": "Peer Dependencies",
+		"noPeerDependencies": "No peer dependencies found",
+		"selectAtLeastOne": "Select at least one version to compare",
+		"loading": "Loading version information...",
+		"error": "An error occurred while loading version information",
+		"moreDependencies": "more",
+		"noDependenciesMessage": "This version has no defined dependencies or dependency information is not available."
+	},
+	"sizeComparison": {
+		"title": "Package Size",
+		"subtitle": "package size and comparison with alternatives",
+		"loading": "Loading size data...",
+		"activeUsed": "Actively Used",
+		"minified": "minified",
+		"gzipped": "gzipped",
+		"dependencies": "dependencies",
+		"alternatives": "Alternatives",
+		"smaller": "smaller",
+		"bundlephobiaNote": "Size data is sourced in real-time from Bundlephobia."
+	},
+	"similarPackages": {
+		"title": "Similar Packages",
+		"compare": "Compare",
+		"noSimilarPackages": "No similar packages found",
+		"mainPackage": "Main Package",
+		"mainPackageDesc": "Selected main package. Will be included in the comparison.",
+		"maxAlternatives": "(You can select up to 2 alternative packages)",
+		"packagesSelected": "packages selected",
+		"alternativePackages": "similar alternative packages. You can select up to 2 alternative packages for comparison."
+	},
+	"footer": {
+		"description": "A tool providing detailed information and analysis about NPM packages.",
+		"madeWith": "made with",
+		"copyright": "All rights reserved",
+		"privacyPolicy": "Privacy Policy",
+		"termsOfUse": "Terms of Use"
+	},
+	"popular": {
+		"heading": "There are many useful packages waiting to be discovered in the JavaScript world. Here are a few lesser-known great packages:",
+		"zx": "A tool developed by Google that makes it easier to write Bash scripts with JavaScript.",
+		"sharp": "High-performance image processing library. Supports formats like JPEG, PNG, WebP and provides fast conversion.",
+		"commander": "Full-featured solution for Node.js command-line applications. Easily manage command arguments and options.",
+		"superjson": "A powerful serialization library that extends JSON, supporting JavaScript data types like Date, Map, Set.",
+		"nanoid": "A minimalist library that generates URL-friendly unique IDs much smaller than UUID. Frequently used in React and other modern frameworks."
+	},
+	"dependencyGraph": {
+		"title": "Dependency Tree",
+		"loading": "Loading dependency data...",
+		"error": "Failed to load dependency data"
+	},
+	"metricsChart": {
+		"title": "Package Size",
+		"loading": "Loading size data...",
+		"minifiedSize": "Minified Size",
+		"gzippedSize": "Gzipped Size",
+		"dependencies": "Dependencies",
+		"sizeNote": "Package size affects loading performance in your JS projects.",
+		"sizeAnalysis": "Size Analysis",
+		"bundlephobia": "Size data is sourced from Bundlephobia. Smaller packages load faster."
+	},
+	"packageComparison": {
+		"loading": "Loading comparison...",
+		"feature": "Feature",
+		"version": "Version",
+		"lastUpdate": "Last Update",
+		"dependencyCount": "Dependency Count",
+		"weeklyDownloads": "Weekly Downloads",
+		"score": "Score",
+		"details": "Details",
+		"npmPage": "NPM page",
+		"descriptions": "Descriptions",
+		"errorLoading": "Error loading package information"
+	},
+	"packageSuggestions": {
+		"title": "Popular Packages",
+		"loading": "Loading popular packages...",
+		"error": "Failed to load popular packages",
+		"weeklyDownload": "weekly downloads"
+	},
+	"popularityChart": {
+		"title": "Popularity Metrics",
+		"loading": "Loading popularity data...",
+		"error": "Failed to load popularity data",
+		"quality": "Quality",
+		"popularity": "Popularity",
+		"maintenance": "Maintenance"
+	},
+	"scoreChart": {
+		"title": "Quality Metrics",
+		"quality": "Quality",
+		"popularity": "Popularity",
+		"maintenance": "Maintenance"
+	},
+	"trendChart": {
+		"title": "Download Trend",
+		"loading": "Loading download data...",
+		"error": "Failed to load download data",
+		"daysAgo": "30 days ago",
+		"today": "Today",
+		"totalDownloads": "Total downloads in the last 30 days:"
+	},
+	"usageChart": {
+		"title": "Last 30 Days Download Trend",
+		"loading": "Loading data...",
+		"error": "An error occurred while loading chart data",
+		"downloads": "Downloads"
+	}
+}

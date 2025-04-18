@@ -1,0 +1,167 @@
+{
+	"title": "npm finder",
+	"subtitle": "NPM paketleri hakkında detaylı bilgi edinin",
+	"search": {
+		"placeholder": "Paket adını girin (örn: react, next, tailwindcss)",
+		"button": "Ara",
+		"loading": "Aranıyor..."
+	},
+	"packageNotFound": {
+		"title": "Paket Bulunamadı",
+		"description": "Aradığınız paket bulunamadı. Lütfen paket adını kontrol edip tekrar deneyin."
+	},
+	"didYouKnow": "Biliyor musunuz?",
+	"popularPackages": "Popüler Paketler",
+	"weeklyDownload": "haftalık indirme",
+	"metrics": {
+		"downloads": "İndirme",
+		"stars": "Yıldız",
+		"issues": "Sorunlar",
+		"score": "Puan"
+	},
+	"comparison": {
+		"title": "Paket Karşılaştırması",
+		"close": "Kapat"
+	},
+	"favorites": {
+		"title": "Favoriler",
+		"empty": "Henüz favori paketiniz yok",
+		"add": "Favorilere Ekle",
+		"remove": "Favorilerden Çıkar"
+	},
+	"suggestions": {
+		"title": "Önerilen Paketler",
+		"empty": "Şu anda önerilen paket bulunmuyor"
+	},
+	"theme": {
+		"light": "Açık Tema",
+		"dark": "Koyu Tema"
+	},
+	"language": {
+		"tr": "TR",
+		"en": "EN"
+	},
+	"packageCard": {
+		"releaseDate": "Yayın Tarihi",
+		"weeklyDownloads": "Haftalık İndirme",
+		"qualityScore": "Kalite Skoru",
+		"popularity": "Popülerlik",
+		"viewOnGithub": "GitHub'da Görüntüle",
+		"version": "v"
+	},
+	"versionCompare": {
+		"title": "Versiyon Karşılaştırma",
+		"selectVersion": "Versiyon Seçin",
+		"dependencies": "Bağımlılıklar",
+		"noDependencies": "Bağımlılık bulunamadı",
+		"devDependencies": "Geliştirme Bağımlılıkları",
+		"noDevDependencies": "Geliştirme bağımlılığı bulunamadı",
+		"peerDependencies": "Eş Bağımlılıklar",
+		"noPeerDependencies": "Eş bağımlılık bulunamadı",
+		"selectAtLeastOne": "Karşılaştırmak için en az bir versiyon seçin",
+		"loading": "Versiyon bilgileri yükleniyor...",
+		"error": "Versiyon bilgileri yüklenirken bir hata oluştu",
+		"moreDependencies": "daha fazla",
+		"noDependenciesMessage": "Bu versiyonda tanımlanmış bağımlılık bulunmuyor veya bağımlılık bilgisi mevcut değil."
+	},
+	"sizeComparison": {
+		"title": "Paket Boyutu",
+		"subtitle": "paketinin boyutu ve alternatiflerin karşılaştırması",
+		"loading": "Boyut verileri yükleniyor...",
+		"activeUsed": "Aktif Kullanılan",
+		"minified": "minified",
+		"gzipped": "gzipped",
+		"dependencies": "bağımlılık",
+		"alternatives": "Alternatifler",
+		"smaller": "daha küçük",
+		"bundlephobiaNote": "Boyut verileri gerçek zamanlı olarak Bundlephobia'dan alınmaktadır."
+	},
+	"similarPackages": {
+		"title": "Benzer Paketler",
+		"compare": "Karşılaştır",
+		"noSimilarPackages": "Benzer paket bulunamadı",
+		"mainPackage": "Ana Paket",
+		"mainPackageDesc": "Seçilen ana paket. Karşılaştırmaya dahil edilecek.",
+		"maxAlternatives": "(Maksimum 2 alternatif paket seçebilirsiniz)",
+		"packagesSelected": "paket seçildi",
+		"alternativePackages": "ile benzer alternatif paketler. Karşılaştırmak için en fazla 2 alternatif paket seçebilirsiniz."
+	},
+	"popular": {
+		"heading": "JavaScript dünyasında keşfedilmeyi bekleyen birçok yararlı paket var. İşte az bilinen birkaç harika paket:",
+		"zx": "JavaScript ile Bash komut dosyalarını yazmayı kolaylaştıran, Google tarafından geliştirilen bir araç.",
+		"sharp": "Yüksek performanslı görüntü işleme kütüphanesi. JPEG, PNG, WebP gibi formatları destekler ve hızlı dönüşüm sağlar.",
+		"commander": "Node.js komut satırı uygulamaları için tam özellikli çözüm. Komut argümanlarını ve seçeneklerini kolayca yönetin.",
+		"superjson": "JSON'u genişleten, Date, Map, Set gibi JavaScript veri tiplerini destekleyen güçlü bir serileştirme kütüphanesi.",
+		"nanoid": "UUID'den çok daha küçük, URL dostu ve benzersiz ID'ler üreten minimalist kütüphane. React ve diğer modern frameworklerde sıkça kullanılır."
+	},
+	"footer": {
+		"description": "NPM paketleri hakkında detaylı bilgi ve analiz sağlayan araç.",
+		"madeWith": "ile yapıldı",
+		"copyright": "Tüm hakları saklıdır",
+		"privacyPolicy": "Gizlilik Politikası",
+		"termsOfUse": "Kullanım Koşulları"
+	},
+	"dependencyGraph": {
+		"title": "Bağımlılık Ağacı",
+		"loading": "Bağımlılık verileri yükleniyor...",
+		"error": "Bağımlılık verileri alınamadı"
+	},
+	"metricsChart": {
+		"title": "Paket Boyutu",
+		"loading": "Boyut verileri yükleniyor...",
+		"minifiedSize": "Sıkıştırılmış Boyut",
+		"gzippedSize": "Gzip Boyut",
+		"dependencies": "Bağımlılıklar",
+		"sizeNote": "Paket boyutu, JS projelerinizde yükleme performansını etkiler.",
+		"sizeAnalysis": "Boyut Analizi",
+		"bundlephobia": "Boyut verileri Bundlephobia'dan alınmıştır. Daha küçük paketler daha hızlı yüklenir."
+	},
+	"packageComparison": {
+		"loading": "Karşılaştırma yükleniyor...",
+		"feature": "Özellik",
+		"packageInfo": "Paket Bilgileri",
+		"version": "Versiyon",
+		"lastUpdate": "Son Güncelleme",
+		"dependencies": "Bağımlılık Sayısı",
+		"weeklyDownloads": "Haftalık İndirme",
+		"score": "Skor",
+		"details": "Detaylar",
+		"npmPage": "NPM sayfası",
+		"descriptions": "Açıklamalar",
+		"errorLoading": "Paket bilgileri yüklenirken hata oluştu"
+	},
+	"packageSuggestions": {
+		"title": "Popüler Paketler",
+		"loading": "Popüler paketler yükleniyor...",
+		"error": "Popüler paketler alınamadı",
+		"weeklyDownload": "haftalık indirme"
+	},
+	"popularityChart": {
+		"title": "Popülerlik Metrikleri",
+		"loading": "Popülerlik verileri yükleniyor...",
+		"error": "Popülerlik verileri alınamadı",
+		"quality": "Kalite",
+		"popularity": "Popülerlik",
+		"maintenance": "Bakım"
+	},
+	"scoreChart": {
+		"title": "Kalite Metrikleri",
+		"quality": "Kalite",
+		"popularity": "Popülerlik",
+		"maintenance": "Bakım"
+	},
+	"trendChart": {
+		"title": "İndirme Trendi",
+		"loading": "İndirme verileri yükleniyor...",
+		"error": "İndirme verileri alınamadı",
+		"daysAgo": "30 gün önce",
+		"today": "Bugün",
+		"totalDownloads": "Son 30 günde toplam"
+	},
+	"usageChart": {
+		"title": "Son 30 Gün İndirme Trendi",
+		"loading": "Veriler yükleniyor...",
+		"error": "Grafik verileri yüklenirken bir hata oluştu",
+		"downloads": "İndirme"
+	}
+}
