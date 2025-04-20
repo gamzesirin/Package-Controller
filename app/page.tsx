@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useCallback, useMemo } from 'react'
 
 import { useSearchParams } from 'next/navigation'
 import { PackageInfo } from '../types'
@@ -30,31 +30,34 @@ function HomeContent() {
 	const searchParams = useSearchParams()
 	const { t } = useTranslation()
 
-	const handleSearch = async (e: React.FormEvent) => {
-		e.preventDefault()
-		if (!packageName.trim()) return
+	const handleSearch = useCallback(
+		async (e: React.FormEvent) => {
+			e.preventDefault()
+			if (!packageName.trim()) return
 
-		setIsLoading(true)
-		setError('')
-		setPackageInfo(null)
-
-		try {
-			const data = await fetchPackageInfo(packageName)
-			setPackageInfo(data)
+			setIsLoading(true)
 			setError('')
-		} catch (err) {
-			setError(err instanceof Error ? err.message : t('packageNotFound.description'))
 			setPackageInfo(null)
-		} finally {
-			setIsLoading(false)
-		}
-	}
 
-	const handleFavoriteChange = () => {
+			try {
+				const data = await fetchPackageInfo(packageName)
+				setPackageInfo(data)
+				setError('')
+			} catch (err) {
+				setError(err instanceof Error ? err.message : t('packageNotFound.description'))
+				setPackageInfo(null)
+			} finally {
+				setIsLoading(false)
+			}
+		},
+		[packageName, t]
+	)
+
+	const handleFavoriteChange = useCallback(() => {
 		setFavoritesKey((prev) => prev + 1)
-	}
+	}, [])
 
-	const handleSelectPackage = (name: string) => {
+	const handleSelectPackage = useCallback((name: string) => {
 		setPackageName(name)
 
 		setTimeout(() => {
@@ -63,16 +66,28 @@ function HomeContent() {
 				formElement.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))
 			}
 		}, 100)
-	}
+	}, [])
 
-	const handleComparePackages = (packages: string[]) => {
+	const handleComparePackages = useCallback((packages: string[]) => {
 		setComparePackages(packages)
 		setShowComparison(true)
-	}
+	}, [])
 
-	const closeComparison = () => {
+	const closeComparison = useCallback(() => {
 		setShowComparison(false)
-	}
+	}, [])
+
+	const headerContent = useMemo(
+		() => (
+			<div className="text-center mb-16">
+				<h1 className="text-4xl lg:text-5xl font-medium tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-teal-400 font-poppins">
+					npm finder
+				</h1>
+				<p className="text-base text-gray-600 dark:text-gray-400 font-normal max-w-xl mx-auto">{t('subtitle')}</p>
+			</div>
+		),
+		[t]
+	)
 
 	return (
 		<AuroraBackground className="min-h-screen">
@@ -82,12 +97,7 @@ function HomeContent() {
 					<ThemeToggle />
 				</div>
 				<main className="container mx-auto px-4 py-12">
-					<div className="text-center mb-16">
-						<h1 className="text-4xl lg:text-5xl font-medium tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-teal-400 font-poppins">
-							npm finder
-						</h1>
-						<p className="text-base text-gray-600 dark:text-gray-400 font-normal max-w-xl mx-auto">{t('subtitle')}</p>
-					</div>
+					{headerContent}
 
 					<form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-12">
 						<div className="relative">
