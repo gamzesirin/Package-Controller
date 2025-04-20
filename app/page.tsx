@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, Suspense } from 'react'
 
 import { useSearchParams } from 'next/navigation'
 import { PackageInfo } from '../types'
@@ -15,8 +15,9 @@ import DidYouKnow from '@/components/DidYouKnow'
 import FavoritesList from '@/components/FavoritesList'
 import PackageSuggestions from '@/components/PackageSuggestions'
 import PackageComparison from '@/components/PackageComparison'
-import { WarpBackground } from '@/components/ui/warp-background'
+
 import { fetchPackageInfo } from './api/fetchPackageInfo'
+import { AuroraBackground } from '@/components/ui/aurora-background'
 
 function HomeContent() {
 	const [packageName, setPackageName] = useState('')
@@ -24,29 +25,10 @@ function HomeContent() {
 	const [error, setError] = useState('')
 	const [packageInfo, setPackageInfo] = useState<PackageInfo | null>(null)
 	const [favoritesKey, setFavoritesKey] = useState(0)
-	const [isDarkMode, setIsDarkMode] = useState(false)
 	const [comparePackages, setComparePackages] = useState<string[]>([])
 	const [showComparison, setShowComparison] = useState(false)
 	const searchParams = useSearchParams()
 	const { t } = useTranslation()
-
-	useEffect(() => {
-		const isDark = document.documentElement.classList.contains('dark')
-		setIsDarkMode(isDark)
-
-		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
-				if (mutation.attributeName === 'class') {
-					const isDark = document.documentElement.classList.contains('dark')
-					setIsDarkMode(isDark)
-				}
-			})
-		})
-
-		observer.observe(document.documentElement, { attributes: true })
-
-		return () => observer.disconnect()
-	}, [])
 
 	const handleSearch = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -93,14 +75,8 @@ function HomeContent() {
 	}
 
 	return (
-		<WarpBackground
-			className="min-h-screen w-full p-0 border-0 bg-white dark:bg-gray-900 font-lexend"
-			perspective={200}
-			beamsPerSide={4}
-			beamSize={6}
-			gridColor={isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}
-		>
-			<div className="relative min-h-screen w-full">
+		<AuroraBackground className="min-h-screen">
+			<div className="relative min-h-screen">
 				<div className="absolute right-4 top-4 flex items-center gap-3">
 					<LanguageSwitcher />
 					<ThemeToggle />
@@ -239,7 +215,7 @@ function HomeContent() {
 					</div>
 				)}
 			</div>
-		</WarpBackground>
+		</AuroraBackground>
 	)
 }
 

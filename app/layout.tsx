@@ -50,10 +50,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="tr" suppressHydrationWarning>
-			<body className={`${lexend.variable} ${poppins.variable} font-lexend antialiased`}>
+			<body className={`${lexend.variable} ${poppins.variable} font-lexend antialiased relative min-h-screen`}>
 				<Providers>
-					{children}
-					<Footer />
+					<div className="relative z-10">
+						{children}
+						<Footer />
+					</div>
 				</Providers>
 			</body>
 		</html>
